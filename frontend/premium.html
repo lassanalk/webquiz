@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>WebQuiz Premium</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <style>
+
+        body {
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .premium-page {
+            width: 100%;
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        /* =================================================
+           HEADER
+        ================================================= */
+
+        .premium-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .premium-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2563eb;
+            margin-bottom: 25px;
+        }
+
+        .premium-header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            margin-bottom: 15px;
+        }
+
+        .premium-header h1 span {
+            color: #2563eb;
+        }
+
+        .premium-header p {
+            max-width: 650px;
+            margin: auto;
+            color: #6b7280;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+
+        /* =================================================
+           TARIFS
+        ================================================= */
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            align-items: stretch;
+        }
+
+        .plan {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 22px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(15, 23, 42, 0.07);
+
+            transition: 0.25s ease;
+        }
+
+        .plan:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(15, 23, 42, 0.12);
+        }
+
+        .plan.popular {
+            border: 2px solid #2563eb;
+            transform: translateY(-8px);
+        }
+
+        .plan.popular:hover {
+            transform: translateY(-12px);
+        }
+
+
+        /* =================================================
+           BADGE POPULAIRE
+        ================================================= */
+
+        .popular-badge {
+            position: absolute;
+
+            top: -13px;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            padding:
+                7px 15px;
+
+            border-radius: 999px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        /* =================================================
+           ICÔNE
+        ================================================= */
+
+        .plan-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+
+        .plan h2 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+
+
+        .plan-description {
+            color: #6b7280;
+
+            min-height: 45px;
+
+            margin-bottom: 25px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================================
+           PRIX
+        ================================================= */
+
+        .price {
+            margin-bottom: 25px;
+        }
+
+        .price strong {
+            font-size: 34px;
+            color: #111827;
+        }
+
+        .price span {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+
+        /* =================================================
+           AVANTAGES
+        ================================================= */
+
+        .features {
+            list-style: none;
+
+            margin: 0 0 30px;
+
+            padding: 0;
+
+            flex: 1;
+        }
+
+        .features li {
+            margin-bottom: 13px;
+
+            color: #374151;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =================================================
+           BOUTON
+        ================================================= */
+
+        .plan-button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #2563eb;
+
+            color: white;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.2s ease;
+        }
+
+        .plan-button:hover {
+            background: #1d4ed8;
+
+            transform:
+                translateY(-2px);
+        }
+
+        .plan-button.free {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .plan-button.free:hover {
+            background: #e5e7eb;
+        }
+
+
+        /* =================================================
+           MESSAGE
+        ================================================= */
+
+        #premiumMessage {
+
+            text-align: center;
+
+            margin: 30px auto 0;
+
+            padding: 15px;
+
+            min-height: 25px;
+
+            font-weight: 700;
+
+            color: #2563eb;
+
+            max-width: 700px;
+
+        }
+
+
+        /* =================================================
+           RETOUR
+        ================================================= */
+
+        .back-button {
+
+            display: block;
+
+            width: fit-content;
+
+            margin: 25px auto 0;
+
+            padding:
+                12px 20px;
+
+            border-radius: 12px;
+
+            background: #f3f4f6;
+
+            color: #111827;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: 0.2s;
+        }
+
+        .back-button:hover {
+            background: #e5e7eb;
+
+            transform:
+                translateY(-1px);
+        }
+
+
+        /* =================================================
+           MESSAGE INFO
+        ================================================= */
+
+        .payment-info {
+
+            margin: 35px auto 0;
+
+            max-width: 700px;
+
+            padding: 18px 20px;
+
+            border-radius: 16px;
+
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            color: #1e40af;
+
+            text-align: center;
+
+            line-height: 1.6;
+
+            font-size: 14px;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================= */
+
+        @media (max-width: 850px) {
+
+            .plans {
+                grid-template-columns: 1fr;
+            }
+
+            .plan.popular {
+                transform: none;
+            }
+
+            .plan.popular:hover {
+                transform:
+                    translateY(-5px);
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            body {
+                padding:
+                    20px 12px;
+            }
+
+            .premium-header {
+                margin-bottom: 40px;
+            }
+
+            .premium-header h1 {
+                font-size: 2rem;
+            }
+
+            .plan {
+                padding: 25px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="premium-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <div class="premium-header">
+
+        <div class="premium-logo">
+            🧠 WebQuiz
+        </div>
+
+        <h1>
+
+            Passe à
+
+            <span>
+                WebQuiz Premium
+            </span>
+
+        </h1>
+
+        <p>
+
+            Débloque progressivement une expérience
+            plus complète de WebQuiz avec davantage
+            de fonctionnalités et de contenu.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TARIFS
+    ================================================= -->
+
+    <div class="plans">
+
+
+        <!-- =================================================
+             GRATUIT
+        ================================================= -->
+
+        <div class="plan">
+
+            <div class="plan-icon">
+                🆓
+            </div>
+
+            <h2>
+                Gratuit
+            </h2>
+
+            <p class="plan-description">
+
+                Pour découvrir WebQuiz
+                et commencer à progresser.
+
+            </p>
+
+
+            <div class="price">
+
+                <strong>
+                    0
+                </strong>
+
+                <span>
+                    FCFA
+                </span>
+
+            </div>
+
+
+            <ul class="features">
+
+                <li>
+                    ✅ Accès aux quiz gratuits
+                </li>
+
+                <li>
+                    ✅ Système XP
+                </li>
+
+                <li>
+                    ✅ Niveaux
+                </li>
+
+                <li>
+                    ✅ Historique des scores
+                </li>
+
+            </ul>
+
+
+            <button
+                class="plan-button free"
+                onclick="goDashboard()"
+            >
+
+                Offre actuelle
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PREMIUM MENSUEL
+        ================================================= -->
+
+        <div class="plan popular">
+
+            <div class="popular-badge">
+
+                ⭐ PLUS POPULAIRE
+
+            </div>
+
+
+            <div class="plan-icon">
+                ⭐
+            </div>
+
+
+            <h2>
+                Premium
+            </h2>
+
+
+            <p class="plan-description">
+
+                Pour profiter pleinement
+                de WebQuiz.
+
+            </p>
+
+
+            <div class="price">
+
+                <strong>
+                    1 000
+                </strong>
+
+                <span>
+                    FCFA / mois
+                </span>
+
+            </div>
+
+
+            <ul class="features">
+
+                <li>
+                    ✅ Tous les quiz
+                </li>
+
+                <li>
+                    ✅ Quiz Premium
+                </li>
+
+                <li>
+                    ✅ Statistiques avancées
+                </li>
+
+                <li>
+                    ✅ Progression XP complète
+                </li>
+
+                <li>
+                    ✅ Historique complet
+                </li>
+
+            </ul>
+
+
+            <button
+                class="plan-button"
+                onclick="paymentUnavailable()"
+            >
+
+                ⭐ Passer Premium
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PREMIUM ANNUEL
+        ================================================= -->
+
+        <div class="plan">
+
+            <div class="plan-icon">
+                👑
+            </div>
+
+
+            <h2>
+                Premium Annuel
+            </h2>
+
+
+            <p class="plan-description">
+
+                Pour profiter de Premium
+                pendant toute l'année.
+
+            </p>
+
+
+            <div class="price">
+
+                <strong>
+                    10 000
+                </strong>
+
+                <span>
+                    FCFA / an
+                </span>
+
+            </div>
+
+
+            <ul class="features">
+
+                <li>
+                    ✅ Tous les avantages Premium
+                </li>
+
+                <li>
+                    ✅ Quiz exclusifs
+                </li>
+
+                <li>
+                    ✅ Statistiques avancées
+                </li>
+
+                <li>
+                    ✅ Accès pendant 12 mois
+                </li>
+
+                <li>
+                    ✅ Prix avantageux
+                </li>
+
+            </ul>
+
+
+            <button
+                class="plan-button"
+                onclick="paymentUnavailable()"
+            >
+
+                👑 Choisir l'annuel
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         MESSAGE
+    ================================================= -->
+
+    <div id="premiumMessage"></div>
+
+
+
+    <!-- =================================================
+         INFORMATION PAIEMENT
+    ================================================= -->
+
+    <div class="payment-info">
+
+        💳 <strong>Paiement bientôt disponible</strong><br>
+
+        Les offres Premium sont déjà présentées.
+        Le paiement en ligne sera ajouté prochainement.
+
+    </div>
+
+
+
+    <!-- =================================================
+         RETOUR DASHBOARD
+    ================================================= -->
+
+    <a
+        href="dashboard.html"
+        class="back-button"
+    >
+
+        ← Retour au dashboard
+
+    </a>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   AUTHENTIFICATION
+========================================================= */
+
+const token =
+    localStorage.getItem(
+        "webquiz_token"
+    );
+
+
+const userData =
+    localStorage.getItem(
+        "webquiz_user"
+    );
+
+
+/* =========================================================
+   VÉRIFICATION CONNEXION
+========================================================= */
+
+if (!token || !userData) {
+
+    window.location.href =
+        "login.html";
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function goDashboard() {
+
+    window.location.href =
+        "dashboard.html";
+}
+
+
+/* =========================================================
+   PAIEMENT DÉSACTIVÉ
+========================================================= */
+
+function paymentUnavailable() {
+
+    const message =
+        document.getElementById(
+            "premiumMessage"
+        );
+
+
+    message.textContent =
+        "💳 Le paiement Premium sera bientôt disponible. Merci pour ton intérêt !";
+
+
+    message.style.color =
+        "#2563eb";
+
+
+    /*
+     * Faire défiler doucement
+     * vers le message.
+     */
+
+    message.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+}
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+console.log(
+    "WebQuiz Premium : paiement temporairement désactivé."
+);
+
+</script>
+
+
+</body>
+
+</html>

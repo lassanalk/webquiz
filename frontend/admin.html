@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard Admin - WebQuiz</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                🧠
+                <span>WebQuiz</span>
+            </div>
+
+            <div class="admin-badge">
+                👑 ADMINISTRATEUR
+            </div>
+
+            <nav>
+
+                <button class="nav-item active" data-section="dashboard">
+                    📊
+                    <span>Dashboard</span>
+                </button>
+
+                <button class="nav-item" data-section="users">
+                    👥
+                    <span>Utilisateurs</span>
+                </button>
+
+                <button class="nav-item" data-section="scores">
+                    🏆
+                    <span>Scores</span>
+                </button>
+
+                <button class="nav-item" data-section="ranking">
+                    🥇
+                    <span>Classement</span>
+                </button>
+
+                <button class="nav-item" data-section="questions">
+                    ❓
+                    <span>Questions</span>
+                </button>
+
+                <button class="nav-item" data-section="premium">
+                    💎
+                    <span>Premium</span>
+                </button>
+
+            </nav>
+
+            <button id="logoutBtn" class="logout-btn">
+                🚪 Déconnexion
+            </button>
+
+        </aside>
+
+
+        <!-- CONTENU -->
+
+        <main class="main-content">
+
+            <!-- HEADER -->
+
+            <header class="topbar">
+
+                <div>
+
+                    <h1 id="pageTitle">
+                        Dashboard
+                    </h1>
+
+                    <p>
+                        Gestion de WebQuiz
+                    </p>
+
+                </div>
+
+
+                <div class="admin-profile">
+
+                    <div class="avatar">
+                        👑
+                    </div>
+
+                    <div>
+
+                        <strong id="adminName">
+                            Administrateur
+                        </strong>
+
+                        <small>
+                            Administrateur
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- DASHBOARD -->
+
+            <section id="dashboardSection" class="section active">
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            👥
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Utilisateurs
+                            </span>
+
+                            <strong id="totalUsers">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            🏆
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Parties jouées
+                            </span>
+
+                            <strong id="totalScores">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            💎
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Premium
+                            </span>
+
+                            <strong id="premiumUsers">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-card">
+
+                        <div class="stat-icon">
+                            ⭐
+                        </div>
+
+                        <div>
+
+                            <span>
+                                XP total
+                            </span>
+
+                            <strong id="totalXP">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+
+                            <h2>
+                                Taux de réussite
+                            </h2>
+
+                            <p>
+                                Performance globale des joueurs
+                            </p>
+
+                        </div>
+
+                        <strong id="averageSuccess" class="success-number">
+                            0%
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div id="successProgress" class="progress-bar"></div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- UTILISATEURS -->
+
+            <section id="usersSection" class="section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            👥 Utilisateurs
+                        </h2>
+
+                        <p>
+                            Tous les utilisateurs de WebQuiz
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>Rôle</th>
+                                <th>Niveau</th>
+                                <th>XP</th>
+                                <th>Premium</th>
+                                <th>Parties</th>
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="usersTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- SCORES -->
+
+            <section id="scoresSection" class="section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            🏆 Scores
+                        </h2>
+
+                        <p>
+                            Historique des parties
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Joueur</th>
+                                <th>Quiz</th>
+                                <th>Score</th>
+                                <th>Pourcentage</th>
+                                <th>XP</th>
+                                <th>Date</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="scoresTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- CLASSEMENT -->
+
+            <section id="rankingSection" class="section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            🥇 Classement
+                        </h2>
+
+                        <p>
+                            Joueurs classés par XP
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="rankingContainer" class="ranking-container"></div>
+
+            </section>
+
+
+            <!-- QUESTIONS -->
+
+            <section id="questionsSection" class="section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            ❓ Gestion des questions
+                        </h2>
+
+                        <p>
+                            Ajouter, modifier et supprimer les questions.
+                        </p>
+
+                    </div>
+
+                    <button id="addQuestionBtn" class="primary-btn">
+                        ➕ Ajouter une question
+                    </button>
+
+                </div>
+
+
+                <div class="question-toolbar">
+
+                    <input type="text" id="questionSearch" placeholder="🔎 Rechercher une question...">
+
+                </div>
+
+
+                <div id="questionFormContainer" class="form-card" style="display:none;">
+
+                    <h2 id="questionFormTitle">
+                        Ajouter une question
+                    </h2>
+
+
+                    <form id="questionForm">
+
+                        <input type="hidden" id="questionId">
+
+
+                        <label>
+                            Question
+                        </label>
+
+                        <textarea id="questionText" rows="3" required placeholder="Écris la question..."></textarea>
+
+
+                        <label>
+                            Catégorie
+                        </label>
+
+                        <input type="text" id="questionCategory" placeholder="HTML, CSS, JavaScript...">
+
+
+                        <label>
+                            Option A
+                        </label>
+
+                        <input type="text" id="optionA" required>
+
+
+                        <label>
+                            Option B
+                        </label>
+
+                        <input type="text" id="optionB" required>
+
+
+                        <label>
+                            Option C
+                        </label>
+
+                        <input type="text" id="optionC">
+
+
+                        <label>
+                            Option D
+                        </label>
+
+                        <input type="text" id="optionD">
+
+
+                        <label>
+                            Bonne réponse
+                        </label>
+
+                        <select id="correctAnswer" required>
+
+                            <option value="">
+                                Choisir
+                            </option>
+
+                            <option value="0">
+                                A
+                            </option>
+
+                            <option value="1">
+                                B
+                            </option>
+
+                            <option value="2">
+                                C
+                            </option>
+
+                            <option value="3">
+                                D
+                            </option>
+
+                        </select>
+
+
+                        <div class="form-actions">
+
+                            <button type="submit" class="primary-btn">
+                                💾 Enregistrer
+                            </button>
+
+                            <button type="button" id="cancelQuestionBtn" class="secondary-btn">
+                                Annuler
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+                                <th>Question</th>
+                                <th>Catégorie</th>
+                                <th>Réponse</th>
+                                <th>Actions</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="questionsTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- PREMIUM -->
+
+            <section id="premiumSection" class="section">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h2>
+                            💎 Premium
+                        </h2>
+
+                        <p>
+                            Utilisateurs Premium de WebQuiz
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Nom</th>
+                                <th>Email</th>
+                                <th>XP</th>
+                                <th>Niveau</th>
+                                <th>Expiration</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="premiumTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="admin.js"></script>
+
+</body>
+
+</html>

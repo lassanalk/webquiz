@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | WebQuiz</title>
+    <link rel="stylesheet" href="style.css">
+
+    ```
+    <style>
+        body {
+            padding: 0;
+            background: #f6f8fc;
+        }
+
+        .dashboard-layout {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: #fff;
+            border-right: 1px solid #e5e7eb;
+            padding: 28px 18px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            box-sizing: border-box;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0 12px;
+            margin-bottom: 45px;
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: #2563eb;
+        }
+
+        .sidebar-logo-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2563eb;
+            color: white;
+            border-radius: 12px;
+        }
+
+        .menu-title {
+            padding: 0 12px;
+            margin-bottom: 12px;
+            color: #9ca3af;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .sidebar-menu button {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 14px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .sidebar-menu button:hover,
+        .sidebar-menu button.active {
+            background: #eff6ff;
+            color: #2563eb;
+        }
+
+        .menu-icon {
+            width: 24px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+        }
+
+        /* MAIN */
+        .dashboard-main {
+            width: calc(100% - 250px);
+            margin-left: 250px;
+            padding: 30px 40px;
+            box-sizing: border-box;
+        }
+
+        .dashboard-content {
+            width: 100%;
+            max-width: 1250px;
+            margin: auto;
+        }
+
+        /* TOPBAR */
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 35px;
+        }
+
+        .topbar-title h1 {
+            margin: 0 0 6px;
+            font-size: 2rem;
+            font-weight: 850;
+            letter-spacing: -.03em;
+        }
+
+        .topbar-title p {
+            margin: 0;
+            color: #64748b;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px 8px 8px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 15px;
+        }
+
+        .profile-avatar {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #2563eb;
+            color: white;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-info strong {
+            font-size: 14px;
+        }
+
+        .profile-info span {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .stat-box {
+            padding: 22px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: .2s;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(15, 23, 42, .07);
+        }
+
+        .stat-box-icon {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: #eff6ff;
+            font-size: 24px;
+        }
+
+        .stat-box:nth-child(2) .stat-box-icon {
+            background: #fef3c7;
+        }
+
+        .stat-box:nth-child(3) .stat-box-icon {
+            background: #ecfdf5;
+        }
+
+        .stat-box-info span {
+            display: block;
+            margin-bottom: 4px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .stat-box-info strong {
+            font-size: 27px;
+        }
+
+        /* XP */
+        .level-card {
+            background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+            border: 1px solid #dbeafe;
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .level-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .level-user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .level-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 15px;
+            font-size: 25px;
+        }
+
+        .level-user small {
+            display: block;
+            color: #64748b;
+            margin-bottom: 3px;
+        }
+
+        #userLevel {
+            font-size: 20px;
+            font-weight: 850;
+        }
+
+        #userXP {
+            color: #2563eb;
+            font-weight: 800;
+        }
+
+        .xp-bar {
+            height: 13px;
+            overflow: hidden;
+            background: #dbeafe;
+            border-radius: 999px;
+        }
+
+        .xp-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            border-radius: inherit;
+            transition: width .7s ease;
+        }
+
+        #xpText {
+            margin: 10px 0 0;
+            color: #64748b;
+            font-size: 12px;
+            text-align: right;
+        }
+
+        /* GRID */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 22px;
+            padding: 25px;
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+        }
+
+        .panel-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .panel-header span {
+            color: #2563eb;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* PREMIUM */
+        .premium-box {
+            position: relative;
+            overflow: hidden;
+            padding: 26px;
+            margin-bottom: 20px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #4c1d95, #7c3aed, #2563eb);
+            color: white;
+            box-shadow: 0 18px 40px rgba(124, 58, 237, .20);
+        }
+
+        .premium-box::after {
+            content: "⭐";
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 75px;
+            opacity: .12;
+        }
+
+        .premium-box h2 {
+            margin: 0 0 8px;
+            font-size: 20px;
+        }
+
+        .premium-box p {
+            max-width: 500px;
+            margin: 0 0 20px;
+            color: rgba(255, 255, 255, .82);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .premium-btn {
+            position: relative;
+            z-index: 2;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 11px;
+            background: white;
+            color: #6d28d9;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* HISTORY */
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .history-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #edf0f4;
+            border-radius: 14px;
+            transition: .2s;
+        }
+
+        .history-card:hover {
+            background: #f8fafc;
+        }
+
+        .history-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .history-icon {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            border-radius: 11px;
+        }
+
+        .history-info h3 {
+            margin: 0 0 4px;
+            font-size: 14px;
+        }
+
+        .history-info p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .history-score {
+            text-align: right;
+        }
+
+        .history-score strong {
+            display: block;
+            color: #2563eb;
+            font-size: 17px;
+        }
+
+        .history-score span {
+            color: #64748b;
+            font-size: 11px;
+        }
+
+        /* ACTIONS */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .action-button {
+            min-height: 90px;
+            padding: 18px;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            background: white;
+            text-align: left;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .action-button:hover {
+            border-color: #93c5fd;
+            background: #f8fbff;
+            transform: translateY(-2px);
+        }
+
+        .action-button-icon {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 23px;
+        }
+
+        .action-button strong {
+            display: block;
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+
+        .action-button span {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* PUBLICITE */
+        .ad-container {
+            min-height: 90px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            border: 1px dashed #cbd5e1;
+            border-radius: 16px;
+            background: #f8fafc;
+            text-align: center;
+        }
+
+        .ad-label {
+            margin-bottom: 5px;
+            color: #94a3b8;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: .15em;
+        }
+
+        .ad-content {
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        #dashboardMessage {
+            margin: 18px 0;
+            color: #64748b;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+        @media(max-width:950px) {
+            .sidebar {
+                width: 75px;
+                padding: 25px 10px;
+            }
+
+            .sidebar-logo {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .sidebar-logo-text,
+            .menu-title,
+            .sidebar-menu button span {
+                display: none;
+            }
+
+            .sidebar-menu button {
+                justify-content: center;
+            }
+
+            .dashboard-main {
+                width: calc(100% - 75px);
+                margin-left: 75px;
+                padding: 25px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:650px) {
+            .dashboard-main {
+                width: 100%;
+                margin-left: 0;
+                padding: 18px;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .topbar-title h1 {
+                font-size: 1.6rem;
+            }
+
+            .profile {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .stats-grid,
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+        }
+    </style>
+    ```
+
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        ```
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">🧠</div>
+                <span class="sidebar-logo-text">WebQuiz</span>
+            </div>
+
+            <div class="menu-title">Menu</div>
+
+            <nav class="sidebar-menu">
+
+                <button class="active" onclick="window.location.href='dashboard.html'">
+                    <span class="menu-icon">📊</span>
+                    <span>Dashboard</span>
+                </button>
+
+                <button onclick="startQuiz()">
+                    <span class="menu-icon">🎯</span>
+                    <span>Jouer</span>
+                </button>
+
+                <button onclick="showHistory()">
+                    <span class="menu-icon">📚</span>
+                    <span>Historique</span>
+                </button>
+
+                <button onclick="goPremium()">
+                    <span class="menu-icon">⭐</span>
+                    <span>Premium</span>
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <button onclick="logout()">
+                    <span class="menu-icon">🚪</span>
+                    <span>Déconnexion</span>
+                </button>
+
+            </div>
+
+        </aside>
+
+        <!-- MAIN -->
+        <main class="dashboard-main">
+
+            <div class="dashboard-content">
+
+                <!-- TOPBAR -->
+                <header class="topbar">
+
+                    <div class="topbar-title">
+
+                        <h1>
+                            Bonjour <span id="welcomeName">👋</span>
+                        </h1>
+
+                        <p>
+                            Prêt à améliorer tes connaissances ?
+                        </p>
+
+                    </div>
+
+                    <div class="profile">
+
+                        <div class="profile-avatar" id="profileAvatar">
+                            U
+                        </div>
+
+                        <div class="profile-info">
+
+                            <strong id="headerUsername">
+                                Utilisateur
+                            </strong>
+
+                            <span>
+                                Membre WebQuiz
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </header>
+
+                <!-- STATISTIQUES -->
+                <section class="stats-grid">
+
+                    <div class="stat-box">
+
+                        <div class="stat-box-icon">
+                            🎯
+                        </div>
+
+                        <div class="stat-box-info">
+
+                            <span>
+                                Quiz joués
+                            </span>
+
+                            <strong id="quizCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <div class="stat-box-icon">
+                            🏆
+                        </div>
+
+                        <div class="stat-box-info">
+
+                            <span>
+                                Meilleur score
+                            </span>
+
+                            <strong id="bestScore">
+                                0%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="stat-box">
+
+                        <div class="stat-box-icon">
+                            📈
+                        </div>
+
+                        <div class="stat-box-info">
+
+                            <span>
+                                Moyenne
+                            </span>
+
+                            <strong id="averageScore">
+                                0%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- XP -->
+                <section class="level-card">
+
+                    <div class="level-top">
+
+                        <div class="level-user">
+
+                            <div class="level-icon">
+                                🏅
+                            </div>
+
+                            <div>
+
+                                <small>
+                                    Ta progression
+                                </small>
+
+                                <div id="userLevel">
+                                    Niveau 1
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <strong id="userXP">
+                            0 XP
+                        </strong>
+
+                    </div>
+
+                    <div class="xp-bar">
+
+                        <div id="xpProgress" class="xp-progress">
+                        </div>
+
+                    </div>
+
+                    <p id="xpText">
+                        0 / 100 XP pour le prochain niveau
+                    </p>
+
+                </section>
+
+                <!-- GRID -->
+                <div class="dashboard-grid">
+
+                    <!-- GAUCHE -->
+                    <div>
+
+                        <!-- PREMIUM -->
+                        <section class="premium-box">
+
+                            <h2 id="premiumTitle">
+                                ⭐ Passe à WebQuiz Premium
+                            </h2>
+
+                            <p id="premiumDescription">
+                                Supprime les publicités et profite
+                                de fonctionnalités exclusives.
+                            </p>
+
+                            <button class="premium-btn" id="premiumButton" onclick="goPremium()">
+                                ⭐ Découvrir Premium
+                            </button>
+
+                        </section>
+
+                        <!-- HISTORIQUE -->
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <h2>
+                                    📚 Derniers résultats
+                                </h2>
+
+                                <span onclick="showHistory()">
+                                    Voir tout →
+                                </span>
+
+                            </div>
+
+                            <div id="historyContainer" class="history-list">
+
+                                <div class="empty-history">
+                                    Chargement...
+                                </div>
+
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                    <!-- DROITE -->
+                    <div>
+
+                        <!-- ACTIONS -->
+                        <section class="panel">
+
+                            <div class="panel-header">
+
+                                <h2>
+                                    ⚡ Actions rapides
+                                </h2>
+
+                            </div>
+
+                            <div class="actions-grid">
+
+                                <button class="action-button" onclick="startQuiz()">
+
+                                    <span class="action-button-icon">
+                                        🎯
+                                    </span>
+
+                                    <strong>
+                                        Commencer un quiz
+                                    </strong>
+
+                                    <span>
+                                        Teste tes connaissances
+                                    </span>
+
+                                </button>
+
+                                <button class="action-button" onclick="showHistory()">
+
+                                    <span class="action-button-icon">
+                                        📚
+                                    </span>
+
+                                    <strong>
+                                        Historique
+                                    </strong>
+
+                                    <span>
+                                        Voir tes résultats
+                                    </span>
+
+                                </button>
+
+                                <button class="action-button" onclick="goPremium()">
+
+                                    <span class="action-button-icon">
+                                        ⭐
+                                    </span>
+
+                                    <strong>
+                                        Premium
+                                    </strong>
+
+                                    <span>
+                                        Découvrir les avantages
+                                    </span>
+
+                                </button>
+
+                                <button class="action-button" onclick="logout()">
+
+                                    <span class="action-button-icon">
+                                        🚪
+                                    </span>
+
+                                    <strong>
+                                        Déconnexion
+                                    </strong>
+
+                                    <span>
+                                        Quitter ton compte
+                                    </span>
+
+                                </button>
+
+                            </div>
+
+                        </section>
+
+                        <!-- PUBLICITE -->
+                        <div id="adContainer" class="ad-container">
+
+                            <div class="ad-label">
+                                PUBLICITÉ
+                            </div>
+
+                            <div class="ad-content">
+                                📢 Votre publicité ici
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p id="dashboardMessage">
+                    Chargement de tes statistiques...
+                </p>
+
+            </div>
+
+        </main>
+        ```
+
+    </div>
+
+    <script>
+
+        /* =========================================================
+           AUTHENTIFICATION
+        ========================================================= */
+
+        const token = localStorage.getItem("webquiz_token");
+
+        let user = null;
+
+
+        /* =========================================================
+           PROTECTION
+        ========================================================= */
+
+        if (!token) {
+            window.location.href = "login.html";
+        }
+
+
+        /* =========================================================
+           CHARGER UTILISATEUR LOCAL
+        ========================================================= */
+
+        function loadLocalUser() {
+
+            try {
+
+                const userData =
+                    localStorage.getItem("webquiz_user");
+
+                if (userData) {
+
+                    user = JSON.parse(userData);
+
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Erreur utilisateur local :",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =========================================================
+           AFFICHER UTILISATEUR
+        ========================================================= */
+
+        function displayUser(user) {
+
+            if (!user) return;
+
+            const name =
+                user.name ||
+                user.username ||
+                "Utilisateur";
+
+            document.getElementById(
+                "headerUsername"
+            ).textContent = name;
+
+            document.getElementById(
+                "welcomeName"
+            ).textContent = name + " 👋";
+
+            document.getElementById(
+                "profileAvatar"
+            ).textContent =
+                name.charAt(0).toUpperCase();
+
+            updateXP(user);
+
+            updatePremiumDisplay(user);
+        }
+
+
+        function updateXP(user) {
+            if (!user) return;
+
+            const xp = Math.max(0, Number(user.xp) || 0);
+            const xpPerLevel = 100;
+
+            // Niveau :
+            // 0-99   => Niveau 1
+            // 100-199 => Niveau 2
+            // 200-299 => Niveau 3
+            const level = Math.floor(xp / xpPerLevel) + 1;
+
+            // XP accumulée dans le niveau actuel
+            const currentXP = xp % xpPerLevel;
+
+            // Pourcentage de progression
+            const percentage = Math.round(
+                (currentXP / xpPerLevel) * 100
+            );
+
+            // Affichage du niveau
+            document.getElementById("userLevel").textContent =
+                `Niveau ${level}`;
+
+            // Affichage XP totale
+            document.getElementById("userXP").textContent =
+                `${xp} XP`;
+
+            // Barre de progression du niveau actuel
+            document.getElementById("xpProgress").style.width =
+                `${percentage}%`;
+
+            // Texte de progression
+            document.getElementById("xpText").textContent =
+                `${currentXP} / ${xpPerLevel} XP pour le prochain niveau`;
+
+            // Synchronisation locale
+            user.xp = xp;
+            user.level = level;
+
+            localStorage.setItem(
+                "webquiz_user",
+                JSON.stringify(user)
+            );
+        }
+
+        /* =========================================================
+           PREMIUM
+        ========================================================= */
+
+        function updatePremiumDisplay(user) {
+
+            const ad =
+                document.getElementById(
+                    "adContainer"
+                );
+
+            const title =
+                document.getElementById(
+                    "premiumTitle"
+                );
+
+            const description =
+                document.getElementById(
+                    "premiumDescription"
+                );
+
+            const button =
+                document.getElementById(
+                    "premiumButton"
+                );
+
+            const isPremium =
+                user &&
+                user.premium === true;
+
+            if (isPremium) {
+
+                ad.style.display = "none";
+
+                title.textContent =
+                    "👑 WebQuiz Premium actif";
+
+                description.textContent =
+                    "Ton compte Premium est actif. Tu profites de WebQuiz sans publicité.";
+
+                button.textContent =
+                    "👑 Premium actif";
+
+                button.disabled = true;
+
+                return;
+            }
+
+            ad.style.display = "flex";
+
+            title.textContent =
+                "⭐ Passe à WebQuiz Premium";
+
+            description.textContent =
+                "Supprime les publicités et profite de fonctionnalités exclusives.";
+
+            button.textContent =
+                "⭐ Découvrir Premium";
+
+            button.disabled = false;
+        }
+
+
+        /* =========================================================
+           UTILISATEUR SERVEUR
+        ========================================================= */
+
+        async function loadCurrentUser() {
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/auth/me",
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ${token}`
+                            }
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (response.status === 401) {
+
+                    logout();
+
+                    return;
+                }
+
+                if (!response.ok) {
+
+                    if (user) {
+                        displayUser(user);
+                    }
+
+                    return;
+                }
+
+                const serverUser =
+                    data.user || data;
+
+                if (serverUser) {
+
+                    user = serverUser;
+
+                    /*
+                       IMPORTANT :
+                       sauvegarder le nouvel XP
+                       reçu du serveur.
+                    */
+
+                    localStorage.setItem(
+                        "webquiz_user",
+                        JSON.stringify(serverUser)
+                    );
+
+                    displayUser(serverUser);
+                }
+
+            } catch (error) {
+
+                console.warn(
+                    "Impossible de contacter /auth/me",
+                    error
+                );
+
+                if (user) {
+                    displayUser(user);
+                }
+            }
+        }
+
+
+        /* =========================================================
+           SCORES
+        ========================================================= */
+
+        async function loadScores() {
+
+            const message =
+                document.getElementById(
+                    "dashboardMessage"
+                );
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/scores",
+                        {
+                            headers: {
+                                Authorization:
+                                    `Bearer ${token}`
+                            }
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (response.status === 401) {
+
+                    logout();
+
+                    return;
+                }
+
+                if (!response.ok) {
+
+                    message.textContent =
+                        data.message ||
+                        "Impossible de charger les statistiques.";
+
+                    return;
+                }
+
+                const scores =
+                    Array.isArray(data.scores)
+                        ? data.scores
+                        : [];
+
+                document.getElementById(
+                    "quizCount"
+                ).textContent =
+                    scores.length;
+
+                if (!scores.length) {
+
+                    document.getElementById(
+                        "bestScore"
+                    ).textContent = "0%";
+
+                    document.getElementById(
+                        "averageScore"
+                    ).textContent = "0%";
+
+                    message.textContent =
+                        "Tu n'as encore joué à aucun quiz.";
+
+                    renderHistory([]);
+
+                    return;
+                }
+
+                const percentages =
+                    scores.map(score => {
+
+                        return Math.max(
+                            0,
+                            Math.min(
+                                100,
+                                Number(
+                                    score.percentage
+                                ) || 0
+                            )
+                        );
+
+                    });
+
+                const best =
+                    Math.max(...percentages);
+
+                const average =
+                    Math.round(
+                        percentages.reduce(
+                            (a, b) => a + b,
+                            0
+                        ) / percentages.length
+                    );
+
+                document.getElementById(
+                    "bestScore"
+                ).textContent =
+                    `${best}%`;
+
+                document.getElementById(
+                    "averageScore"
+                ).textContent =
+                    `${average}%`;
+
+                message.textContent =
+                    `Tu as joué ${scores.length} quiz. Continue comme ça ! 🚀`;
+
+                renderHistory(scores);
+
+            } catch (error) {
+
+                console.error(error);
+
+                message.textContent =
+                    "Impossible de contacter le serveur.";
+            }
+        }
+
+
+        /* =========================================================
+           HISTORIQUE
+        ========================================================= */
+
+        function renderHistory(scores) {
+
+            const container =
+                document.getElementById(
+                    "historyContainer"
+                );
+
+            if (!scores.length) {
+
+                container.innerHTML = `
+            <div class="empty-history">
+                📚 Aucun résultat pour le moment.
+            </div>
+        `;
+
+                return;
+            }
+
+            const recent =
+                [...scores]
+                    .reverse()
+                    .slice(0, 5);
+
+            container.innerHTML =
+                recent.map(score => {
+
+                    const percentage =
+                        Number(
+                            score.percentage
+                        ) || 0;
+
+                    const quiz =
+                        escapeHTML(
+                            score.quiz ||
+                            "Quiz"
+                        );
+
+                    const date =
+                        formatDate(
+                            score.date
+                        );
+
+                    return `
+
+                <div class="history-card">
+
+                    <div class="history-left">
+
+                        <div class="history-icon">
+                            🎯
+                        </div>
+
+                        <div class="history-info">
+
+                            <h3>
+                                ${quiz}
+                            </h3>
+
+                            <p>
+                                ${date}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="history-score">
+
+                        <strong>
+                            ${percentage}%
+                        </strong>
+
+                        <span>
+                            ${score.score ?? 0}
+                            /
+                            ${score.total ?? 0}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            `;
+
+                }).join("");
+        }
+
+
+        /* =========================================================
+           DATE
+        ========================================================= */
+
+        function formatDate(value) {
+
+            if (!value) {
+                return "Date inconnue";
+            }
+
+            const date =
+                new Date(value);
+
+            if (
+                Number.isNaN(
+                    date.getTime()
+                )
+            ) {
+                return "Date inconnue";
+            }
+
+            return date.toLocaleString(
+                "fr-FR",
+                {
+                    dateStyle: "medium",
+                    timeStyle: "short"
+                }
+            );
+        }
+
+
+        /* =========================================================
+           SÉCURITÉ
+        ========================================================= */
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        function startQuiz() {
+
+            window.location.href =
+                "index.html";
+        }
+
+        function showHistory() {
+
+            window.location.href =
+                "history.html";
+        }
+
+        function goPremium() {
+
+            window.location.href =
+                "premium.html";
+        }
+
+
+        /* =========================================================
+           LOGOUT
+        ========================================================= */
+
+        function logout() {
+
+            localStorage.removeItem(
+                "webquiz_token"
+            );
+
+            localStorage.removeItem(
+                "webquiz_user"
+            );
+
+            window.location.href =
+                "login.html";
+        }
+
+
+        /* =========================================================
+           INITIALISATION
+        ========================================================= */
+
+        loadLocalUser();
+
+        if (user) {
+            displayUser(user);
+        }
+
+        loadCurrentUser();
+
+        loadScores();
+
+
+        /* =========================================================
+           SYNCHRONISATION XP
+           Si le quiz modifie localStorage pendant que
+           le dashboard est ouvert, le dashboard se met à jour.
+        ========================================================= */
+
+        window.addEventListener(
+            "storage",
+            function (event) {
+
+                if (
+                    event.key ===
+                    "webquiz_user"
+                ) {
+
+                    loadLocalUser();
+
+                    if (user) {
+                        displayUser(user);
+                    }
+                }
+            }
+        );
+
+
+        /*
+           Vérification périodique.
+           Utile si une autre page modifie les données.
+        */
+
+        setInterval(
+            function () {
+
+                loadLocalUser();
+
+                if (user) {
+                    updateXP(user);
+                }
+
+            },
+            2000
+        );
+
+    </script>
+
+</body>
+
+</html>

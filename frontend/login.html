@@ -1,0 +1,195 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - WebQuiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="auth-page">
+
+    <div class="auth-container">
+
+        <!-- PANNEAU GAUCHE -->
+        <aside class="auth-side">
+            <div class="auth-side-content">
+
+                <div class="auth-side-logo">
+                    <div class="brand-icon">🧠</div>
+                    <span>WebQuiz</span>
+                </div>
+
+                <h2>
+                    Apprends.<br>
+                    Progresse.<br>
+                    Réussis.
+                </h2>
+
+                <p>
+                    Connecte-toi à ton espace WebQuiz et continue
+                    ton apprentissage là où tu l'avais arrêté.
+                </p>
+
+                <div class="auth-features">
+
+                    <div class="auth-feature">
+                        <div class="auth-feature-icon">🎯</div>
+                        <span>Suivi de ta progression</span>
+                    </div>
+
+                    <div class="auth-feature">
+                        <div class="auth-feature-icon">🏆</div>
+                        <span>Gagne de l'XP et monte de niveau</span>
+                    </div>
+
+                    <div class="auth-feature">
+                        <div class="auth-feature-icon">📚</div>
+                        <span>Teste tes connaissances</span>
+                    </div>
+
+                </div>
+
+            </div>
+        </aside>
+
+        <!-- FORMULAIRE -->
+        <main class="auth-card">
+
+            <div class="auth-top">
+                <a href="index.html" class="auth-back">
+                    ← Retour
+                </a>
+            </div>
+
+            <h1>Bienvenue 👋</h1>
+
+            <p class="auth-subtitle">
+                Connecte-toi pour retrouver ta progression.
+            </p>
+
+            <form id="loginForm" class="auth-form">
+
+                <!-- EMAIL -->
+                <div class="auth-field">
+
+                    <label for="email">
+                        Email
+                        <span class="auth-label-required">*</span>
+                    </label>
+
+                    <div class="auth-input-wrapper">
+
+                        <span class="auth-input-icon">✉️</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="exemple@email.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- MOT DE PASSE -->
+                <div class="auth-field">
+
+                    <label for="password">
+                        Mot de passe
+                        <span class="auth-label-required">*</span>
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <div class="auth-input-wrapper">
+
+                            <span class="auth-input-icon">🔒</span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Ton mot de passe"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            aria-label="Afficher le mot de passe"
+                        >
+                            👁️
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- OPTIONS -->
+                <div class="auth-options">
+
+                    <label class="remember-me">
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
+                        <span>Se souvenir de moi</span>
+                    </label>
+
+                    <a
+                        href="#"
+                        class="forgot-password"
+                        id="forgotPassword"
+                    >
+                        Mot de passe oublié ?
+                    </a>
+
+                </div>
+
+                <!-- BOUTON -->
+                <button
+                    type="submit"
+                    class="auth-button"
+                >
+                    Se connecter
+                </button>
+
+            </form>
+
+            <p
+                id="loginMessage"
+                class="auth-message"
+            ></p>
+
+            <div class="auth-divider">
+                <span>OU</span>
+            </div>
+
+            <p class="auth-footer">
+                Pas encore de compte ?
+                <a href="register.html">
+                    Créer un compte
+                </a>
+            </p>
+
+        </main>
+
+    </div>
+
+</div>
+
+<script src="auth.js"></script>
+
+</body>
+</html>

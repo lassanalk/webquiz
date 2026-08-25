@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="WebQuiz — Teste tes connaissances en HTML, CSS, JavaScript et Python.">
+
+    <meta name="theme-color" content="#2563eb">
+
+    <title>WebQuiz — Teste tes connaissances</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<main class="app">
+
+    <!-- =====================================================
+         ACCUEIL
+    ====================================================== -->
+
+    <section id="ecranAcceuil" class="screen home-screen">
+
+        <!-- ================= HEADER ================= -->
+
+        <header class="home-header">
+
+            <a href="/" class="brand" aria-label="WebQuiz - Accueil">
+
+                <div class="brand-icon">
+                    W
+                </div>
+
+                <div class="brand-text">
+                    <strong>WebQuiz</strong>
+                    <small>Learn • Play • Progress</small>
+                </div>
+
+            </a>
+
+
+            <!-- ================= AUTH ================= -->
+
+            <nav class="header-actions" aria-label="Navigation utilisateur">
+
+                <a href="login.html"
+                   class="header-login"
+                   id="loginButton">
+
+                    <span class="auth-icon">↪</span>
+
+                    <span>
+                        <small>Déjà membre ?</small>
+                        <strong>Se connecter</strong>
+                    </span>
+
+                </a>
+
+
+                <a href="register.html"
+                   class="header-register"
+                   id="registerButton">
+
+                    <span class="register-icon">
+                        +
+                    </span>
+
+                    <span>
+                        <small>Nouveau sur WebQuiz ?</small>
+                        <strong>Créer un compte</strong>
+                    </span>
+
+                </a>
+
+            </nav>
+
+        </header>
+
+
+        <!-- ================= HERO ================= -->
+
+        <div class="home-content">
+
+            <div class="hero-badge">
+                <span>🧠</span>
+                <span>Apprends</span>
+                <span>•</span>
+                <span>Joue</span>
+                <span>•</span>
+                <span>Progresse</span>
+            </div>
+
+
+            <h1>
+                Teste tes connaissances
+                <span>
+                    et améliore ton niveau.
+                </span>
+            </h1>
+
+
+            <p class="subtitle">
+                Relève des défis, réponds aux questions et mesure
+                tes connaissances dans plusieurs domaines de
+                l'informatique.
+            </p>
+
+
+            <!-- ================= STATS ================= -->
+
+            <div class="quick-stats">
+
+                <div class="quick-stat">
+
+                    <strong>4+</strong>
+
+                    <span>
+                        Catégories
+                    </span>
+
+                </div>
+
+
+                <div class="quick-stat">
+
+                    <strong>100+</strong>
+
+                    <span>
+                        Questions
+                    </span>
+
+                </div>
+
+
+                <div class="quick-stat">
+
+                    <strong>30s</strong>
+
+                    <span>
+                        Par question
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CATEGORIES ================= -->
+
+            <div class="choices-title">
+
+                <span>
+                    Choisis une catégorie
+                </span>
+
+                <small>
+                    Commence gratuitement
+                </small>
+
+            </div>
+
+
+            <div id="choices" class="choices">
+
+                <!-- HTML -->
+
+                <button
+                    type="button"
+                    class="choice"
+                    data-category="HTML">
+
+                    <div class="choice-icon html-icon">
+                        🌐
+                    </div>
+
+                    <div class="choice-content">
+
+                        <strong>
+                            HTML
+                        </strong>
+
+                        <small>
+                            Structure des pages web
+                        </small>
+
+                    </div>
+
+                    <span class="choice-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- CSS -->
+
+                <button
+                    type="button"
+                    class="choice"
+                    data-category="CSS">
+
+                    <div class="choice-icon css-icon">
+                        🎨
+                    </div>
+
+                    <div class="choice-content">
+
+                        <strong>
+                            CSS
+                        </strong>
+
+                        <small>
+                            Design et interfaces web
+                        </small>
+
+                    </div>
+
+                    <span class="choice-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- JavaScript -->
+
+                <button
+                    type="button"
+                    class="choice"
+                    data-category="JavaScript">
+
+                    <div class="choice-icon js-icon">
+                        ⚡
+                    </div>
+
+                    <div class="choice-content">
+
+                        <strong>
+                            JavaScript
+                        </strong>
+
+                        <small>
+                            Programmation web
+                        </small>
+
+                    </div>
+
+                    <span class="choice-arrow">
+                        →
+                    </span>
+
+                </button>
+
+
+                <!-- Python -->
+
+                <button
+                    type="button"
+                    class="choice"
+                    data-category="Python">
+
+                    <div class="choice-icon python-icon">
+                        🐍
+                    </div>
+
+                    <div class="choice-content">
+
+                        <strong>
+                            Python
+                        </strong>
+
+                        <small>
+                            Programmation et logique
+                        </small>
+
+                    </div>
+
+                    <span class="choice-arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- ================= ACCOUNT CTA ================= -->
+
+            <div class="account-cta">
+
+                <div class="account-cta-icon">
+                    🚀
+                </div>
+
+                <div class="account-cta-content">
+
+                    <strong>
+                        Envie de suivre ta progression ?
+                    </strong>
+
+                    <p>
+                        Crée un compte gratuitement pour
+                        sauvegarder tes scores et gagner de l'XP.
+                    </p>
+
+                </div>
+
+                <a href="register.html"
+                   class="account-cta-button">
+
+                    Créer mon compte
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= FOOTER ================= -->
+
+        <footer class="home-footer">
+
+            <div class="footer-brand">
+
+                <div class="brand-icon small">
+                    W
+                </div>
+
+                <strong>
+                    WebQuiz
+                </strong>
+
+            </div>
+
+
+            <div class="footer-separator">
+                •
+            </div>
+
+
+            <span>
+                Apprendre gratuitement
+            </span>
+
+
+            <div class="footer-separator">
+                •
+            </div>
+
+
+            <span>
+                Tester ses connaissances
+            </span>
+
+        </footer>
+
+    </section>
+
+
+    <!-- =====================================================
+         QUIZ
+    ====================================================== -->
+
+    <section
+        id="quizScreen"
+        class="screen quiz-screen hidden">
+
+        <!-- TOPBAR -->
+
+        <div class="quiz-topbar">
+
+            <button
+                type="button"
+                id="homeButton"
+                class="icon-button"
+                aria-label="Retour à l'accueil">
+
+                ←
+
+            </button>
+
+
+            <div class="quiz-brand">
+
+                <div class="brand-icon">
+                    W
+                </div>
+
+                <span>
+                    WebQuiz
+                </span>
+
+            </div>
+
+
+            <div
+                id="scoreDisplay"
+                class="quiz-score">
+
+                Score :
+                <strong>0</strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- TIMER -->
+
+        <div
+            id="quizTimer"
+            class="quiz-timer">
+
+            ⏱ 30s
+
+        </div>
+
+
+        <!-- PROGRESSION -->
+
+        <div class="progress-section">
+
+            <div class="progress-info">
+
+                <span id="categoryDisplay">
+                    HTML
+                </span>
+
+                <span id="questionCounter">
+                    Question 1 / 10
+                </span>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    id="progressBar"
+                    class="progress-fill">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUESTION -->
+
+        <div class="question-container">
+
+            <span class="question-label">
+                QUESTION
+            </span>
+
+            <h2 id="questionText">
+                Chargement de la question...
+            </h2>
+
+        </div>
+
+
+        <!-- REPONSES -->
+
+        <div
+            id="answerChoices"
+            class="answers">
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="quiz-actions">
+
+            <button
+                type="button"
+                id="nextButton"
+                class="primary-button"
+                disabled>
+
+                Suivant →
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         RESULTAT
+    ====================================================== -->
+
+    <section
+        id="resultScreen"
+        class="screen result-screen hidden">
+
+        <div class="result-icon">
+            🏆
+        </div>
+
+
+        <h2>
+            Quiz terminé !
+        </h2>
+
+
+        <p
+            id="resultText"
+            class="result-description">
+
+            Voici ton résultat.
+
+        </p>
+
+
+        <!-- SCORE -->
+
+        <div class="result-card">
+
+            <span class="result-label">
+                TON SCORE
+            </span>
+
+            <strong id="resultScore">
+                0 / 0
+            </strong>
+
+        </div>
+
+
+        <!-- SAUVEGARDE -->
+
+        <div
+            id="saveScoreBox"
+            class="save-score-box">
+
+            <div class="save-score-icon">
+                💾
+            </div>
+
+            <div class="save-score-content">
+
+                <strong>
+                    Sauvegarde ton résultat
+                </strong>
+
+                <p>
+                    Crée gratuitement ton compte pour
+                    conserver tes scores, gagner de l'XP
+                    et suivre ta progression.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACTIONS -->
+
+        <div class="result-actions">
+
+            <a
+                href="register.html"
+                id="registerResultButton"
+                class="primary-button result-link">
+
+                🚀 Créer mon compte
+
+            </a>
+
+
+            <a
+                href="login.html"
+                id="loginResultButton"
+                class="secondary-button result-link">
+
+                🔐 Se connecter
+
+            </a>
+
+        </div>
+
+
+        <button
+            type="button"
+            id="restartButton"
+            class="restart-button">
+
+            🔄 Rejouer
+
+        </button>
+
+
+        <button
+            type="button"
+            id="resultHomeButton"
+            class="home-result-button">
+
+            ← Retour à l'accueil
+
+        </button>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     SCRIPT
+====================================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
