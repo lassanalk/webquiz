@@ -1,11 +1,15 @@
 const mysql = require("mysql2/promise");
 
 const db = mysql.createPool({
-    host: "localhost",
-    user: "root",
-    password: "Lassana123@",
-    database: "webquiz",
-    port: 3306,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: Number(process.env.DB_PORT || 3306),
+
+    ssl: {
+        rejectUnauthorized: true
+    },
 
     waitForConnections: true,
     connectionLimit: 10,
@@ -18,7 +22,7 @@ async function testDatabase() {
 
         console.log("======================================");
         console.log("✅ Connexion réussie à MySQL");
-        console.log("🗄️ Base de données : webquiz");
+        console.log(`🗄️ Base de données : ${process.env.DB_NAME}`);
         console.log("======================================");
 
         connection.release();
